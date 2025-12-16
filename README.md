@@ -9,7 +9,7 @@
 ---
 
 ## 📸 Demo
-![App Demo](demo_screenshot.png)
+![App Demo](demo_screenshot2.png)
 
 ---
 
