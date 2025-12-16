@@ -9,7 +9,7 @@
 ---
 
 ## 📸 Demo
-*(Upload a screenshot of your app detecting a "Neckline" or "Bag" here)*
+![App Demo](demo_screenshot.png)
 
 ---
 
