@@ -1,6 +1,6 @@
-
 streamlit
+ultralytics
 torch
-transformers
 pillow
-pyngrok
+pandas
+git+https://github.com/openai/CLIP.git
