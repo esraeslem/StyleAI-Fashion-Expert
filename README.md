@@ -1,29 +1,26 @@
-# 👗 StyleAI: Context-Aware Fashion Assistant
+# 👗 StyleAI: Rule-Based Fashion Assistant
 
-![Computer Vision](https://img.shields.io/badge/Computer_Vision-YOLOS-purple)
-![Hugging Face](https://img.shields.io/badge/Model-Transformers-yellow)
-![Status](https://img.shields.io/badge/Status-Live_Prototype-success)
+StyleAI is a prototype Streamlit app that detects clothing items in an outfit photo and gives simple styling tips. It combines a **YOLOv8 object detector** with a small **rule-based styling layer**: detected items are mapped to styling rules (e.g. the *Sandwich Rule*, the *Third Piece Rule*) to turn labels into actionable advice.
 
-**StyleAI** is a computer vision application that acts as a personal stylist. Unlike standard object detectors that simply label items ("Shirt", "Pants"), StyleAI uses a **Proprietary Logic Engine** to understand fashion context, apply styling rules (like the *Sandwich Method*), and provide actionable advice.
-
----
+> Status: early prototype. A custom scarf detector can be plugged in via `scarf_model.pt`; without it, the app falls back to the standard YOLOv8n model.
 
 ## 📸 Demo
 ![App Demo](demo_screenshot2.png)
 
----
-
-## 🧠 The Architecture
-
-This project bridges the gap between **Raw Pixel Data** and **Human Styling Intuition**.
+## 🧠 How It Works
 
 ```mermaid
 graph LR;
-    A[User Image] -->|Input| B(YOLOS Vision Transformer);
-    B -->|Detects| C{Raw Objects};
-    C -->|'Sleeve', 'Neckline', 'Shoe'| D[Styling Logic Engine];
-    D -->|Applies Rules| E[Algorithm: The Sandwich Rule];
-    D -->|Applies Rules| F[Algorithm: 33/66 Proportion];
-    E & F --> G[Final Styling Advice];
-    style B fill:#f9f,stroke:#333,stroke-width:2px
-    style D fill:#bbf,stroke:#333,stroke-width:2px
+    A[User Image] --> B(YOLOv8 Detector);
+    B -->|labels e.g. 'tie', 'scarf'| C[Rule-Based Styling Layer];
+    C --> D[Styling Tip per Item];
+```
+
+1. **Detection:** YOLOv8 (custom scarf model if available, otherwise `yolov8n`) detects items in the photo.
+2. **Rules:** Each detected item is matched to a styling rule (scarf → Third Piece Rule, tie → length rule, other items → Sandwich Rule).
+3. **Output:** The app shows one tip per detected item.
+
+## 🔭 Next Steps
+- Train and publish the custom scarf model weights
+- Use CLIP (already loaded) for color and pattern matching
+- Add more styling rules (e.g. proportion rules)
